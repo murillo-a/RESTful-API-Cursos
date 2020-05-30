@@ -81,11 +81,5 @@ public class Participante extends User {
 	public void setPersonasACargo(int personasACargo) {
 		this.personasACargo = personasACargo;
 	}
-//	public User getUser() {
-//		return user;
-//	}
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
 
 }

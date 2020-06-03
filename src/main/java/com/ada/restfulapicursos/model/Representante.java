@@ -1,11 +1,8 @@
 package com.ada.restfulapicursos.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -17,8 +14,6 @@ import javax.persistence.Table;
 public class Representante {
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(nullable = false, unique = true)
 	private int repId;
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -35,7 +30,6 @@ public class Representante {
 	@Column(nullable = false)
 	private String cargoEnEmpresa;
 
-	
 	
 	public int getRepId() {
 		return repId;

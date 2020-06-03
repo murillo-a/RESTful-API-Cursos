@@ -1,42 +1,55 @@
 package com.ada.restfulapicursos.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "id", "email" }) })
 public class User {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	protected Integer userId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(nullable = false, unique = true)
+	private int id;
 
-	protected String email;
-	
-	protected String pw;
-	protected String nombre;
-	protected String apellido;
-	
+	@Column(nullable = false, unique = true)
+	private String email;
 
-	public Integer getUserId() {
-		return userId;
+	@Column(nullable = false)
+	private String pw;
+
+	@Column(nullable = false)
+	private String nombre;
+
+	@Column(nullable = false)
+	private String apellido;
+
+
+	public int getId() {
+		return id;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+
+	public void setId(int id) {
+		this.id = id;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getApellido() {
 		return apellido;
 	}
+
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}

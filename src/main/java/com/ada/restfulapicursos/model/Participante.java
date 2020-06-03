@@ -2,20 +2,73 @@ package com.ada.restfulapicursos.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "part_id")
-public class Participante extends User {
+@Table(name = "participantes")
+public class Participante {
 	
+	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(nullable = false, unique = true)
+	private int partId;
+
+	@OneToOne
+	@MapsId
+	private User user;
+	
+	@Column(nullable = false)
 	private LocalDate fechaNacimiento;
+	
+	@Column(nullable = false)
 	private char genero;
+	
+	@Column(nullable = false)
 	private String ciudad;
+	
+	@Column(nullable = false)
 	private String provincia;
+	
+	@Column(nullable = false)
 	private boolean estudia;
+	
+	@Column(nullable = false)
 	private boolean trabaja;
-	private float ingresos;
+	
+	
+	public int getPartId() {
+		return partId;
+	}
+
+	public void setPartId(int partId) {
+		this.partId = partId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setIngresos(Float ingresos) {
+		this.ingresos = ingresos;
+	}
+	
+	private Float ingresos;
+	
+	@Column(name = "personas_a_cargo")
 	private int personasACargo;
 
 	public LocalDate getFechaNacimiento() {

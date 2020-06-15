@@ -6,14 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
-@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "id", "email" }) })
+@Table(name = "users")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
 	private int id;
 
@@ -21,6 +24,7 @@ public class User {
 	private String email;
 
 	@Column(nullable = false)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String pw;
 
 	@Column(nullable = false)
@@ -54,6 +58,7 @@ public class User {
 		this.apellido = apellido;
 	}
 
+	@JsonIgnore
 	public String getPw() {
 		return pw;
 	}

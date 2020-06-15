@@ -3,9 +3,11 @@ package com.ada.restfulapicursos.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,8 +20,9 @@ public class Participante {
 	@Column(nullable = false, unique = true)
 	private int partId;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@MapsId
+	@JoinColumn(name = "part_id")
 	private User user;
 	
 	@Column(nullable = false)
@@ -33,14 +36,18 @@ public class Participante {
 	
 	@Column(nullable = false)
 	private String provincia;
+
+	@Embedded
+	private DatosSocioEconom datosSocioEconom;
 	
-	@Column(nullable = false)
-	private boolean estudia;
-	
-	@Column(nullable = false)
-	private boolean trabaja;
-	
-	
+	public DatosSocioEconom getDatosSocioEconom() {
+		return datosSocioEconom;
+	}
+
+	public void setDatosSocioEconom(DatosSocioEconom datosSocioEconom) {
+		this.datosSocioEconom = datosSocioEconom;
+	}
+
 	public int getPartId() {
 		return partId;
 	}
@@ -56,15 +63,6 @@ public class Participante {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public void setIngresos(Float ingresos) {
-		this.ingresos = ingresos;
-	}
-	
-	private Float ingresos;
-	
-	@Column(name = "personas_a_cargo")
-	private int personasACargo;
 
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
@@ -96,38 +94,6 @@ public class Participante {
 
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
-	}
-
-	public boolean isEstudia() {
-		return estudia;
-	}
-
-	public void setEstudia(boolean estudia) {
-		this.estudia = estudia;
-	}
-
-	public boolean isTrabaja() {
-		return trabaja;
-	}
-
-	public void setTrabaja(boolean trabaja) {
-		this.trabaja = trabaja;
-	}
-
-	public float getIngresos() {
-		return ingresos;
-	}
-
-	public void setIngresos(float ingresos) {
-		this.ingresos = ingresos;
-	}
-
-	public int getPersonasACargo() {
-		return personasACargo;
-	}
-
-	public void setPersonasACargo(int personasACargo) {
-		this.personasACargo = personasACargo;
 	}
 
 }

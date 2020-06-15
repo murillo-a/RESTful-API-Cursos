@@ -14,9 +14,10 @@ import javax.persistence.Table;
 public class Representante {
 
 	@Id
+	@Column(nullable = false, unique = true)
 	private int repId;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
     @MapsId
     @JoinColumn(name = "rep_id")
 	private User user;
@@ -30,7 +31,6 @@ public class Representante {
 	@Column(nullable = false)
 	private String cargoEnEmpresa;
 
-	
 	public int getRepId() {
 		return repId;
 	}

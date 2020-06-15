@@ -9,21 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "empresas", uniqueConstraints={@UniqueConstraint(columnNames = {"id", "cuil"} ) })
+@Table(name = "empresas")
 public class Empresa {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
-	private Integer id;
+	private Integer empresaId;
 	
 	@Column(nullable = false)
 	private String nombre;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String cuil;
 	
 	private String tipoDeEmpresa;
@@ -34,15 +33,30 @@ public class Empresa {
 	@Column(nullable = false)
 	private String telef;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "rep_id", insertable=false, updatable=false, nullable = false)
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "rep_id", nullable = false)
 	private Representante representante;
 	
-	public Integer getId() {
-		return id;
+	public Empresa(String nombre, String cuil, String tipoDeEmpresa, String direccion, String categoria,
+			String anioFundacion, String telef, Representante representante) {
+		this.nombre = nombre;
+		this.cuil = cuil;
+		this.tipoDeEmpresa = tipoDeEmpresa;
+		this.direccion = direccion;
+		this.categoria = categoria;
+		this.anioFundacion = anioFundacion;
+		this.telef = telef;
+		this.representante = representante;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	
+	public Empresa() {
+	}
+	
+	public Integer getEmpresaId() {
+		return empresaId;
+	}
+	public void setEmpresaId(Integer id) {
+		this.empresaId = id;
 	}
 	public String getNombre() {
 		return nombre;

@@ -12,41 +12,60 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "cursos", uniqueConstraints={@UniqueConstraint(columnNames = {"id"} ) })
+@Table(name = "cursos", uniqueConstraints = { @UniqueConstraint(columnNames = { "id" }) })
 public class Curso {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
 	private Integer id;
-	
+
 	@Column(nullable = false)
 	private String nombre;
-	
+
 	@Column(nullable = false)
 	private String categoria;
-	
+
 	@Column(nullable = false)
 	private Float costo;
-	
+
 	@Column(nullable = false)
 	private String modalidad;
-	
+
 	@Column(nullable = false)
 	private int horas;
-	
+
 	@Column(nullable = false)
 	private String descripcion;
-	
+
 	@Column(nullable = false)
 	private int cupos;
-	
+
 	@Column(nullable = false)
 	private int participantes;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "empresa_id", insertable=false, updatable=false, nullable = false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "empresa_id", nullable = false)
 	private Empresa empresa;
+
+	public Curso() {
+	}
+	
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
 	public String getDescripcion() {
 		return descripcion;

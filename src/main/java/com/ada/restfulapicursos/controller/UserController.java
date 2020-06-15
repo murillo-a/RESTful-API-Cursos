@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ada.restfulapicursos.model.User;
 import com.ada.restfulapicursos.repository.UserRepository;
@@ -24,27 +23,26 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@PostMapping(path = "/add")
-	public @ResponseBody String addNewUser(@RequestBody User user) {
+	public ResponseEntity<User> addUser(@RequestBody User user) {
 		userRepository.save(user);
-		return "Saved";
+		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
 
 	@GetMapping(path = "/all")
-	public @ResponseBody Iterable<User> getAllUsers() {
-		// This returns a JSON or XML with the users
-		return userRepository.findAll();
+	public ResponseEntity<Iterable<User>> getAllUsers() {
+		Iterable<User> users = userRepository.findAll();
+		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(path = "/get")
 	public ResponseEntity<User> getUser(@RequestParam Integer id) {
 		Optional<User> optUser = userRepository.findById(id);
-		if (optUser.equals(Optional.empty())) {
+		if (Optional.empty().equals(optUser)) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		} else {
+			User user = optUser.get();
+			return new ResponseEntity<>(user, HttpStatus.OK);
 		}
-		else {
-		User user = optUser.get();
-		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
-	}
-	
+
 }

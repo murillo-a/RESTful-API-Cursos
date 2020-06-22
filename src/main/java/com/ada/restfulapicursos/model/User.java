@@ -32,6 +32,9 @@ public class User {
 
 	@Column(nullable = false)
 	private String apellido;
+	
+	@Column(columnDefinition = "varchar(5) not null check (tipo in ('admin', 'part', 'rep'))")
+	private String tipo;
 
 
 	public int getId() {

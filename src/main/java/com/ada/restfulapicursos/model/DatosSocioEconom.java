@@ -1,5 +1,7 @@
 package com.ada.restfulapicursos.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -12,8 +14,8 @@ public class DatosSocioEconom {
 	@Column(nullable = false)
 	private boolean trabaja;
 	
-	@Column(nullable = false)
-	private Float ingresoMensual;
+	@Column(nullable = false, precision=8, scale=2)
+	private BigDecimal ingresoMensual;
 	
 	@Column(name = "personas_a_cargo", nullable = false)
 	private int personasACargo;
@@ -34,11 +36,11 @@ public class DatosSocioEconom {
 		this.trabaja = trabaja;
 	}
 
-	public Float getIngresoMensual() {
+	public BigDecimal getIngresoMensual() {
 		return ingresoMensual;
 	}
 
-	public void setIngresoMensual(Float ingresoMensual) {
+	public void setIngresoMensual(BigDecimal ingresoMensual) {
 		this.ingresoMensual = ingresoMensual;
 	}
 

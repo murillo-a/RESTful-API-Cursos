@@ -35,7 +35,7 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/get")
-	public ResponseEntity<User> getUser(@RequestParam Integer id) {
+	public ResponseEntity<User> getUser(@RequestParam int id) {
 		Optional<User> optUser = userRepository.findById(id);
 		if (Optional.empty().equals(optUser)) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

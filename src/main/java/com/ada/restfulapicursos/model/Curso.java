@@ -1,5 +1,7 @@
 package com.ada.restfulapicursos.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,16 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "cursos", uniqueConstraints = { @UniqueConstraint(columnNames = { "id" }) })
+@Table(name = "cursos")
 public class Curso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
-	private Integer id;
+	private int id;
 
 	@Column(nullable = false)
 	private String nombre;
@@ -26,8 +27,8 @@ public class Curso {
 	@Column(nullable = false)
 	private String categoria;
 
-	@Column(nullable = false)
-	private Float costo;
+	@Column(nullable = false, precision=8, scale=2)
+	private BigDecimal costo;
 
 	@Column(nullable = false)
 	private String modalidad;
@@ -41,16 +42,27 @@ public class Curso {
 	@Column(nullable = false)
 	private int cupos;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "INTEGER(7) DEFAULT 0")
 	private int participantes;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "empresa_id", nullable = false)
 	private Empresa empresa;
 
+	@Column(columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'por empezar' CHECK (estado IN('por empezar', 'en progreso, 'finalizado'))")
+	private String estado;
+	
 	public Curso() {
 	}
-	
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public String getCategoria() {
 		return categoria;
 	}
@@ -115,11 +127,11 @@ public class Curso {
 		this.cupos = cupos;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -131,11 +143,11 @@ public class Curso {
 		this.nombre = nombre;
 	}
 
-	public Float getCosto() {
+	public BigDecimal getCosto() {
 		return costo;
 	}
 
-	public void setCosto(Float costo) {
+	public void setCosto(BigDecimal costo) {
 		this.costo = costo;
 	}
 

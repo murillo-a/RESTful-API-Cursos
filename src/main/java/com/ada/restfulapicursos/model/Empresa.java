@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "empresas")
@@ -17,7 +18,7 @@ public class Empresa {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
-	private Integer empresaId;
+	private int empresaId;
 	
 	@Column(nullable = false)
 	private String nombre;
@@ -37,6 +38,10 @@ public class Empresa {
 	@JoinColumn(name = "rep_id", nullable = false)
 	private Representante representante;
 	
+	@Size(min = 8, max = 9)
+	@Column(columnDefinition = "VARCHAR(9) DEFAULT 'pendiente' CHECK (aprobacion IN ('pendiente', 'aprobada', 'rechazada'))")
+	private String aprobacion;
+	
 	public Empresa(String nombre, String cuil, String tipoDeEmpresa, String direccion, String categoria,
 			String anioFundacion, String telef, Representante representante) {
 		this.nombre = nombre;
@@ -52,10 +57,10 @@ public class Empresa {
 	public Empresa() {
 	}
 	
-	public Integer getEmpresaId() {
+	public int getEmpresaId() {
 		return empresaId;
 	}
-	public void setEmpresaId(Integer id) {
+	public void setEmpresaId(int id) {
 		this.empresaId = id;
 	}
 	public String getNombre() {

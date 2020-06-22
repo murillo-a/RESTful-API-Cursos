@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "inscripciones")
@@ -25,10 +26,23 @@ public class Inscripcion {
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
 
+	@Column(columnDefinition = "TINYINT(3) CHECK (porcent_pedido IN (0, 25, 75, 100))")
 	private int porcentPedido;
 
-	@Column(columnDefinition = "varchar(9) check (estado IN ('pendiente', 'aprobada', 'rechazada'))")
+	@Size(min = 8, max = 9)
+	@Column(columnDefinition = "VARCHAR(9) DEFAULT 'pendiente' CHECK (estado IN ('pendiente', 'aprobado', 'rechazado', 'cursando', 'terminado'))")
 	private String estado;
+	
+	public Inscripcion() {
+		
+	}
+	
+	public Inscripcion(Participante participante, Curso curso, int porcentPedido, String aprobacion) {
+		this.participante = participante;
+		this.curso = curso;
+		this.porcentPedido = porcentPedido;
+		this.estado = aprobacion;
+	}
 
 	public int getId() {
 		return id;
@@ -62,11 +76,12 @@ public class Inscripcion {
 		this.porcentPedido = porcentPedido;
 	}
 
-	public String getEstado() {
+	public String getAprobacion() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setAprobacion(String aprobacion) {
+		this.estado = aprobacion;
 	}
+
 }

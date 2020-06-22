@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ada.restfulapicursos.model.Empresa;
 import com.ada.restfulapicursos.model.Representante;
@@ -27,6 +29,7 @@ public class EmpresaController {
 	private RepresentanteRepository representanteRepository;
 
 	@PostMapping(path = "/add/{repId}")
+	//TODO cursos-add aprobacion de admin antes de dar de alta a la empresa
 	public ResponseEntity<Empresa> addEmpresa(@PathVariable int repId, @RequestBody Empresa empresa) {
 		Optional<Representante> optRep = representanteRepository.findById(repId);
 		if (Optional.empty().equals(optRep)) {
@@ -39,4 +42,16 @@ public class EmpresaController {
 		}
 	}
 
+	@GetMapping(path = "/get")
+	public ResponseEntity<Empresa> getEmpresa(@RequestParam int id){
+		Empresa empresa = empresaRepository.findById(id);
+		if (empresa.equals(null)) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		} else {
+		return new ResponseEntity<>(empresa, HttpStatus.OK);
+		}
+	}
+	
+	
+	
 }

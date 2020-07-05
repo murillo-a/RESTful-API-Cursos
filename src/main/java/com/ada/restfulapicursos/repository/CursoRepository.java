@@ -1,13 +1,15 @@
 package com.ada.restfulapicursos.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.ada.restfulapicursos.model.Curso;
 import com.ada.restfulapicursos.model.Empresa;
 
-public interface CursoRepository extends CrudRepository<Curso, Integer> {
+public interface CursoRepository extends CrudRepository<Curso, Long> {
 
-	public Curso findById(int id);
+	public Optional<Curso> findById(Long id);
 	
 	public Iterable<Curso> findByCuposGreaterThan(int num);
 	

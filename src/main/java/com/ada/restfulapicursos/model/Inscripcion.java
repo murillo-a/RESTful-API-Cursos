@@ -16,7 +16,8 @@ public class Inscripcion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@Column(nullable = false, unique = true)
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "part_id")
@@ -44,11 +45,11 @@ public class Inscripcion {
 		this.estado = aprobacion;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

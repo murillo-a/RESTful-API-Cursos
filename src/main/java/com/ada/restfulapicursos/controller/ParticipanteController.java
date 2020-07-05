@@ -19,7 +19,7 @@ import com.ada.restfulapicursos.repository.ParticipanteRepository;
 import com.ada.restfulapicursos.repository.UserRepository;
 
 @Controller
-@RequestMapping(path = "/participante")
+@RequestMapping(path = "/api")
 public class ParticipanteController {
 
 	@Autowired
@@ -28,8 +28,8 @@ public class ParticipanteController {
 	@Autowired
 	private ParticipanteRepository participanteRepository;
 
-	@PostMapping(path = "/add/{userId}")
-	public ResponseEntity<Participante> addParticipante(@PathVariable int userId, @RequestBody Participante participante) {
+	@PostMapping(path = "/participante/{userId}")
+	public ResponseEntity<Participante> addParticipante(@PathVariable Long userId, @RequestBody Participante participante) {
 		Optional<User> optUser = userRepository.findById(userId);
 
 		if (Optional.empty().equals(optUser)) {
@@ -43,14 +43,14 @@ public class ParticipanteController {
 		}
 	}
 
-	@GetMapping(path = "/get")
-	public ResponseEntity<Participante> getParticipante(@RequestParam int id) {
+	@GetMapping(path = "/participante")
+	public ResponseEntity<Participante> getParticipante(@RequestParam Long id) {
 		Optional<Participante> optPart = participanteRepository.findById(id);
 		if (Optional.empty().equals(optPart)) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		} else {
 			Participante participante = optPart.get();
-			return new ResponseEntity<>(participante, HttpStatus.CREATED);
+			return new ResponseEntity<>(participante, HttpStatus.OK);
 		}
 
 	}

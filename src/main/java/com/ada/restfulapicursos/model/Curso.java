@@ -19,7 +19,7 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
-	private int id;
+	private Long id;
 
 	@Column(nullable = false)
 	private String nombre;
@@ -49,7 +49,7 @@ public class Curso {
 	@JoinColumn(name = "empresa_id", nullable = false)
 	private Empresa empresa;
 
-	@Column(columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'por empezar' CHECK (estado IN('por empezar', 'en progreso, 'finalizado'))")
+	@Column(columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'por empezar' CHECK (estado IN('por empezar', 'en progreso', 'finalizado'))")
 	private String estado;
 	
 	public Curso() {
@@ -127,11 +127,11 @@ public class Curso {
 		this.cupos = cupos;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

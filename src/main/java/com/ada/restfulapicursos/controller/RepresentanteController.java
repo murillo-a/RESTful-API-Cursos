@@ -20,7 +20,7 @@ import com.ada.restfulapicursos.repository.RepresentanteRepository;
 import com.ada.restfulapicursos.repository.UserRepository;
 
 @Controller
-@RequestMapping(path = "/representante")
+@RequestMapping(path = "/api")
 public class RepresentanteController {
 
 	@Autowired
@@ -29,8 +29,8 @@ public class RepresentanteController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@PostMapping(path = "/add/{userId}") //TODO test
-	public ResponseEntity<Representante> addRepresentante(@PathVariable int userId, @RequestBody Representante representante) {
+	@PostMapping(path = "/representante/{userId}")
+	public ResponseEntity<Representante> addRepresentante(@PathVariable Long userId, @RequestBody Representante representante) {
 		Optional<User> optUser = userRepository.findById(userId);
 		if (Optional.empty().equals(optUser)) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -43,8 +43,8 @@ public class RepresentanteController {
 		}
 	}
 
-	@GetMapping(path = "/get")
-	public ResponseEntity<Representante> getRepresentante(@RequestParam Integer id) {		
+	@GetMapping(path = "/representante")
+	public ResponseEntity<Representante> getRepresentante(@RequestParam Long id) {		
 		Optional<Representante> optRep = representanteRepository.findByRepId(id);
 		if (Optional.empty().equals(optRep)) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

@@ -15,7 +15,7 @@ public class Representante {
 
 	@Id
 	@Column(nullable = false, unique = true)
-	private int repId;
+	private Long repId;
 
 	@OneToOne(fetch = FetchType.EAGER)
     @MapsId
@@ -31,11 +31,11 @@ public class Representante {
 	@Column(nullable = false)
 	private String cargoEnEmpresa;
 
-	public int getRepId() {
+	public Long getRepId() {
 		return repId;
 	}
 
-	public void setRepId(int repId) {
+	public void setRepId(Long repId) {
 		this.repId = repId;
 	}
 

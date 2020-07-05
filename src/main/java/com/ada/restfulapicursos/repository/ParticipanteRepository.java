@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.ada.restfulapicursos.model.Participante;
 
-public interface ParticipanteRepository extends CrudRepository<Participante, Integer> {
+public interface ParticipanteRepository extends CrudRepository<Participante, Long> {
 
 }

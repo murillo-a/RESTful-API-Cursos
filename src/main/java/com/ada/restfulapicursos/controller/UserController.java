@@ -16,26 +16,20 @@ import com.ada.restfulapicursos.model.User;
 import com.ada.restfulapicursos.repository.UserRepository;
 
 @Controller
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/api")
 public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
 
-	@PostMapping(path = "/add")
-	public ResponseEntity<User> addUser(@RequestBody User user) {
-		userRepository.save(user);
-		return new ResponseEntity<>(user, HttpStatus.CREATED);
-	}
-
-	@GetMapping(path = "/all")
+	@GetMapping(path = "/users")
 	public ResponseEntity<Iterable<User>> getAllUsers() {
 		Iterable<User> users = userRepository.findAll();
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/get")
-	public ResponseEntity<User> getUser(@RequestParam int id) {
+	@GetMapping(path = "/user")
+	public ResponseEntity<User> getUser(@RequestParam Long id) {
 		Optional<User> optUser = userRepository.findById(id);
 		if (Optional.empty().equals(optUser)) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

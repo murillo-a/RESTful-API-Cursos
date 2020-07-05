@@ -3,6 +3,7 @@ package com.ada.restfulapicursos.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ import com.ada.restfulapicursos.repository.CursoRepository;
 import com.ada.restfulapicursos.repository.EmpresaRepository;
 
 @Controller
-@RequestMapping(path = "/curso")
+@RequestMapping(path = "/api")
 public class CursoController {
 
 	@Autowired
@@ -26,7 +27,8 @@ public class CursoController {
 	@Autowired
 	private EmpresaRepository empresaRepository;
 
-	@PostMapping(path = "/add/{empresaId}")
+	@PostMapping(path = "/curso/{empresaId}")
+	@PreAuthorize("hasRole('REP')")
 	public ResponseEntity<Curso> addCurso(@PathVariable int empresaId, @RequestBody Curso curso) {
 		Empresa empresa = empresaRepository.findById(empresaId);
 		if (empresa.equals(null)) {
@@ -38,25 +40,25 @@ public class CursoController {
 		}
 	}
 
-	@GetMapping(path = "/get")
+	@GetMapping(path = "/curso")
 	public ResponseEntity<Curso> getCurso(@RequestParam int id) {
 		Curso curso = cursoRepository.findById(id);
 		return new ResponseEntity<>(curso, HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/disponibles")
+	@GetMapping(path = "/cursos/disponibles")
 	public ResponseEntity<Iterable<Curso>> getCursosDisponibles() {
 		Iterable<Curso> cursos = cursoRepository.findByCuposGreaterThan(0);
 		return new ResponseEntity<>(cursos, HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/porcategoria/{cat}")
+	@GetMapping(path = "/cursos/{cat}")
 	public ResponseEntity<Iterable<Curso>> findByCategoria(@PathVariable String cat) {
 		Iterable<Curso> cursos = cursoRepository.findByCategoria(cat);
 		return new ResponseEntity<>(cursos, HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "/porempresa/{empresaNom}")
+	@GetMapping(path = "/cursos/{empresaNom}")
 	public ResponseEntity<Iterable<Curso>> findByEmpresa(@PathVariable String empresaNom) {
 		Empresa empresa = empresaRepository.findByNombreIgnoreCase(empresaNom);
 		
@@ -64,7 +66,7 @@ public class CursoController {
 		return new ResponseEntity<>(cursos, HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "/{empresaNom}/{cat}")
+	@GetMapping(path = "/cursos/{empresaNom}/{cat}")
 	public ResponseEntity<Iterable<Curso>> findByEmpCat(@PathVariable String empresaNom, @PathVariable String cat) {
 		Empresa empresa = empresaRepository.findByNombreIgnoreCase(empresaNom);
 		

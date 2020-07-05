@@ -18,7 +18,7 @@ public class Participante {
 	
 	@Id
 	@Column(nullable = false, unique = true)
-	private int partId;
+	private Long partId;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@MapsId
@@ -48,11 +48,11 @@ public class Participante {
 		this.datosSocioEconom = datosSocioEconom;
 	}
 
-	public int getPartId() {
+	public Long getPartId() {
 		return partId;
 	}
 
-	public void setPartId(int partId) {
+	public void setPartId(Long partId) {
 		this.partId = partId;
 	}
 

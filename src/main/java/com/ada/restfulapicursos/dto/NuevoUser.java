@@ -21,7 +21,19 @@ public class NuevoUser {
 
     private Set<String> roles;
 
-    public String getNombre() {
+    public String getPw() {
+		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getNombre() {
         return nombre;
     }
 

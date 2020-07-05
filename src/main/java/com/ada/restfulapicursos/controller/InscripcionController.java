@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ada.restfulapicursos.dto.InscripDto;
 import com.ada.restfulapicursos.model.Curso;
 import com.ada.restfulapicursos.model.Inscripcion;
 import com.ada.restfulapicursos.model.Participante;
@@ -19,7 +21,7 @@ import com.ada.restfulapicursos.repository.InscripcionRepository;
 import com.ada.restfulapicursos.repository.ParticipanteRepository;
 
 @Controller
-@RequestMapping(path = "/inscripcion")
+@RequestMapping(path = "/api")
 public class InscripcionController {
 
 	@Autowired
@@ -31,21 +33,21 @@ public class InscripcionController {
 	@Autowired
 	private CursoRepository cursoRepository;
 
-	@PostMapping(path = "/add")
-	public ResponseEntity<Inscripcion> addInscripcion(@RequestParam int cursoId, @RequestParam int partId, @RequestParam int porcentPedido, @RequestParam String estado){
+	@PostMapping(path = "/inscripcion")
+	public ResponseEntity<Inscripcion> addInscripcion(@RequestBody InscripDto inscripDto){
 		
-		Optional<Participante> optPart = participanteRepository.findById(partId);
+		Optional<Participante> optPart = participanteRepository.findById(inscripDto.getPartId());
 		Participante participante = optPart.get();
 		
-		Curso curso = cursoRepository.findById(cursoId);
+		Curso curso = cursoRepository.findById(inscripDto.getCursoId());
 		
-		Inscripcion inscripcion = new Inscripcion(participante, curso, porcentPedido, estado);
+		Inscripcion inscripcion = new Inscripcion(participante, curso, inscripDto.getPorcentPedido(), inscripDto.getEstado());
 		
 		inscripcionRepository.save(inscripcion);
 		return new ResponseEntity<>(inscripcion, HttpStatus.CREATED);
 	}
 	
-	@GetMapping(path = "/get")
+	@GetMapping(path = "/inscripcion")
 	public ResponseEntity<Inscripcion> getInscripcion(@RequestParam int id){
 		Inscripcion inscripcion = inscripcionRepository.findById(id);
 		return new ResponseEntity<>(inscripcion, HttpStatus.OK);

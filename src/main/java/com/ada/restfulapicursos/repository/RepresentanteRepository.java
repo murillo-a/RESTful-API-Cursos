@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.ada.restfulapicursos.model.Representante;
 
-public interface RepresentanteRepository extends CrudRepository<Representante, Integer> {
+public interface RepresentanteRepository extends CrudRepository<Representante, Long> {
 
-	public Optional<Representante> findByRepId(Integer repId);
+	public Optional<Representante> findByRepId(Long repId);
 	
 }

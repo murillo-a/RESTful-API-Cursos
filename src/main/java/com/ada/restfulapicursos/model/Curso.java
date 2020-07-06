@@ -49,7 +49,7 @@ public class Curso {
 	@JoinColumn(name = "empresa_id", nullable = false)
 	private Empresa empresa;
 
-	@Column(columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'por empezar' CHECK (estado IN('por empezar', 'en progreso, 'finalizado'))")
+	@Column(columnDefinition = "VARCHAR(11) NOT NULL DEFAULT 'por empezar' CHECK (estado IN('por empezar', 'en progreso', 'finalizado'))")
 	private String estado;
 	
 	public Curso() {

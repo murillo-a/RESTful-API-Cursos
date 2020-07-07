@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 public class InscripDto {
 
 	@NotBlank
-	private int cursoId;
+	private Long cursoId;
 	
 	@NotBlank
 	private Long partId;
@@ -15,10 +15,10 @@ public class InscripDto {
 	
 	private String estado;
 	
-	public int getCursoId() {
+	public Long getCursoId() {
 		return cursoId;
 	}
-	public void setCursoId(int cursoId) {
+	public void setCursoId(Long cursoId) {
 		this.cursoId = cursoId;
 	}
 	public Long getPartId() {

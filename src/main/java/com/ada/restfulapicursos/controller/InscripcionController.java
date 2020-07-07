@@ -39,7 +39,8 @@ public class InscripcionController {
 		Optional<Participante> optPart = participanteRepository.findById(inscripDto.getPartId());
 		Participante participante = optPart.get();
 		
-		Curso curso = cursoRepository.findById(inscripDto.getCursoId());
+		Optional<Curso> optCurso = cursoRepository.findById(inscripDto.getCursoId());
+		Curso curso = optCurso.get();
 		
 		Inscripcion inscripcion = new Inscripcion(participante, curso, inscripDto.getPorcentPedido(), inscripDto.getEstado());
 		
